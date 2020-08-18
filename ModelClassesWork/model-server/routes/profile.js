@@ -47,6 +47,35 @@ router.route("/add/").post((req, res) => {
     .catch((err) => res.status(400).json({ Error: err }));
 });
 
+router.route("/socialData").get((req, res) => {
+  msg = {
+    Name: "Balram Rathore",
+    "YT Channel": "Dev Stack",
+    "Social Media": {
+      "FB Page": "https://www.facebook.com/devstack06",
+      "Instagram Page": "https://www.instagram.com/dev_stack06/",
+      Twitter: "https://twitter.com/DevStack06",
+    },
+  };
+  return res.json(msg);
+});
+
+router.route("/socialData2").get((req, res) => {
+  msg = {
+    name: "Balram Rathore",
+    channelName: "Dev Stack",
+    socialMedia: {
+      fbPage: "https://www.facebook.com/devstack06",
+      instaPage: {
+        channelPage: "https://www.instagram.com/dev_stack06/",
+        ownPage: "https://www.instagram.com/rathore_balram06/",
+      },
+      twitter: "https://twitter.com/DevStack06",
+    },
+  };
+  return res.json(msg);
+});
+
 //adding and update profile image
 
 module.exports = router;
