@@ -76,6 +76,48 @@ router.route("/socialData2").get((req, res) => {
   return res.json(msg);
 });
 
+router.route("/socialData3").get((req, res) => {
+  msg = [
+    {
+      name: "Balram Rathore",
+      channelName: "Dev Stack",
+      socialMedia: {
+        fbPage: "https://www.facebook.com/devstack06",
+        instaPage: {
+          channelPage: "https://www.instagram.com/dev_stack06/",
+          ownPage: "https://www.instagram.com/rathore_balram06/",
+        },
+        twitter: "https://twitter.com/DevStack06",
+      },
+    },
+    {
+      name: "Saket Sinha",
+      channelName: "",
+      socialMedia: {
+        fbPage: "FbPage/SaketSinha",
+        instaPage: {
+          channelPage: "",
+          ownPage: "Insta12345",
+        },
+        twitter: "",
+      },
+    },
+    {
+      name: "Aquib Sahab",
+      channelName: "Tech123",
+      socialMedia: {
+        fbPage: "Aquib Tech",
+        instaPage: {
+          channelPage: "XYZ1",
+          ownPage: "XYZ2",
+        },
+        twitter: "XYZ3",
+      },
+    },
+  ];
+  return res.json(msg);
+});
+
 //adding and update profile image
 
 module.exports = router;
