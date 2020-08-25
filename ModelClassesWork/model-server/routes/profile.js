@@ -7,6 +7,15 @@ router.route("/all").get((req, res) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
+      res.json({ data: profiles });
+    }
+  });
+});
+router.route("/all2").get((req, res) => {
+  Profile.find({}, (err, profiles) => {
+    if (err) {
+      res.status(400).json({ error: err });
+    } else {
       res.json(profiles);
     }
   });
