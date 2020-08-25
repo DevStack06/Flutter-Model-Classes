@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:modelapp/Model/listModel.dart';
 import 'package:modelapp/Model/model.dart';
 
 import 'Model/Profile/mainModel.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  MainModel mainModel = MainModel();
+  ListModel listModel = ListModel();
   bool circular = true;
   @override
   void initState() {
@@ -27,10 +28,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getData() async {
-    var res = await http.get("http://192.168.43.92:5000/profile/socialData2");
+    var res = await http.get("http://192.168.43.92:5000/profile/all2");
     var r = json.decode(res.body);
     setState(() {
-      mainModel = MainModel.fromJson(r);
+      listModel = ListModel.fromJson({"data": r});
       circular = false;
     });
     // print(r["name"]);
@@ -43,19 +44,33 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: circular
               ? CircularProgressIndicator()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(mainModel.name),
-                    Text(mainModel.channelName),
-                    Text("FB Page -----> ${mainModel.socialMedia.fbPage}"),
-                    Text("Twitter Page ----> ${mainModel.socialMedia.twitter}"),
-                    Text(
-                        "Insta channel Page -----> ${mainModel.socialMedia.instaPage.channelPage}"),
-                    Text(
-                        "Insta Own Page ----> ${mainModel.socialMedia.instaPage.ownPage}"),
-                  ],
-                ),
+              : ListView.builder(
+                  itemCount: listModel.data.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      dataShow(listModel.data[index])),
+        ),
+      ),
+    );
+  }
+
+  Widget dataShow(Model obj) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+      child: Container(
+        height: 100,
+        // width: MediaQuery.of(context).size.width,
+        child: Card(
+          color: Colors.teal,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Name : ${obj.name}"),
+              SizedBox(
+                height: 10,
+              ),
+              Text("PhoneNumber : ${obj.phonenumber}"),
+            ],
+          ),
         ),
       ),
     );
