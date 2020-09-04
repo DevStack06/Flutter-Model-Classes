@@ -127,6 +127,34 @@ router.route("/socialData3").get((req, res) => {
   return res.json(msg);
 });
 
+router.route("/delete/:name").delete((req, res) => {
+  console.log(req.params.name);
+  Profile.findOneAndDelete({ name: req.params.name }, (err, result) => {
+    if (err) return res.status(500).json({ msg: err });
+    const msg = {
+      msg: "User deleted",
+      username: req.params.username,
+    };
+    return res.json(msg);
+  });
+  // res.json("ok");
+});
+router.route("/delete1/").delete((req, res) => {
+  console.log(req.params.name);
+  Profile.findOneAndDelete(
+    { _id: "5f509e85a8d8a75680704e2f" },
+    (err, result) => {
+      if (err) return res.status(500).json({ msg: err });
+      const msg = {
+        msg: "User deleted",
+        username: req.params.username,
+      };
+      return res.json(msg);
+    }
+  );
+  // res.json("ok");
+});
+
 //adding and update profile image
 
 module.exports = router;
