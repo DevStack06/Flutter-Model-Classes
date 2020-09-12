@@ -56,6 +56,22 @@ router.route("/add/").post((req, res) => {
     .catch((err) => res.status(400).json({ Error: err }));
 });
 
+//adding a list of user profile data
+router.route("/addAll/").post((req, res) => {
+  req.body
+    .map((i) => {
+      const profile = new Profile({
+        name: i.body.name,
+        phonenumber: i.body.phonenumber,
+      });
+      profile.save();
+    })
+    .then(() =>
+      res.json({ Message: "Profile added successfully !", data: profile })
+    )
+    .catch((err) => res.status(400).json({ Error: err }));
+});
+
 router.route("/socialData").get((req, res) => {
   msg = {
     Name: "Balram Rathore",
