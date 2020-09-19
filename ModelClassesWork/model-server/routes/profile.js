@@ -58,18 +58,16 @@ router.route("/add/").post((req, res) => {
 
 //adding a list of user profile data
 router.route("/addAll/").post((req, res) => {
-  req.body
-    .map((i) => {
-      const profile = new Profile({
-        name: i.body.name,
-        phonenumber: i.body.phonenumber,
-      });
-      profile.save();
-    })
-    .then(() =>
-      res.json({ Message: "Profile added successfully !", data: profile })
-    )
-    .catch((err) => res.status(400).json({ Error: err }));
+  req.body.data.map((i) => {
+    const profile = new Profile({
+      name: i.name,
+      phonenumber: i.phonenumber,
+    });
+    profile
+      .save()
+      .then(() => res.json({ Message: "All Data added successfully !" }))
+      .catch((err) => res.status(400).json({ Error: err }));
+  });
 });
 
 router.route("/socialData").get((req, res) => {
@@ -143,15 +141,10 @@ router.route("/socialData3").get((req, res) => {
   return res.json(msg);
 });
 
-router.route("/delete/:name").delete((req, res) => {
+router.route("/delete/").delete((req, res) => {
   console.log(req.params.name);
-  Profile.findOneAndDelete({ name: req.params.name }, (err, result) => {
-    if (err) return res.status(500).json({ msg: err });
-    const msg = {
-      msg: "User deleted",
-      username: req.params.username,
-    };
-    return res.json(msg);
+  Profile.deleteMany((err, result) => {
+    res.json("ok");
   });
   // res.json("ok");
 });
