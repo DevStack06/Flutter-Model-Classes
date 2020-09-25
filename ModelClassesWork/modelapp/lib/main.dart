@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modelapp/pages/addData.dart';
 import 'package:modelapp/pages/listData.dart';
+import 'package:modelapp/pages/myapp.dart';
 
 void main() {
   runApp(AppContainer());
@@ -12,7 +13,7 @@ class AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ListData(),
+      home: MyApp(),
     );
   }
 }
